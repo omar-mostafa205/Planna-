@@ -1,0 +1,20 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+model Profile {
+  id                   String   @id @default(uuid())
+  userId               String   @unique
+  subscriptionTier     String?
+  subscriptionActive   Boolean  @default(false)
+  stripeSubscriptionId String?  @unique
+  mealPlan             Json?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
